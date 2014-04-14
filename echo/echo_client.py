@@ -53,7 +53,7 @@ def main():
         while True:
             process_message(raw_input('your message: '))
     except (KeyboardInterrupt, EOFError):
-        pass
+        print
 
 
 if __name__ == '__main__':
