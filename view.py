@@ -40,6 +40,8 @@ from push import StopChannel
 from push import WatchChange
 from push import WatchFile
 
+import socket
+
 
 # Set deadline of urlfetch in order to prevent 5 second timeout
 urlfetch.set_default_fetch_deadline(45)
@@ -405,6 +407,21 @@ class WtaHandler(BaseHandler):
         self.response.write(num + 1)
 
 
+class EchoHandler(BaseHandler):
+    def post(self):
+        logging.debug(self.request.body)
+
+        ip = self.request.POST.get('ip')
+        port = int(self.request.POST.get('port'))
+        msg = self.request.POST.get('msg')
+        print ip, port, msg
+
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        sock.sendto(msg, (ip, port))
+
+        self.response.write('OK')
+
+
 # Configure secret key for session.
 config = {}
 config['webapp2_extras.sessions'] = {
@@ -423,4 +440,5 @@ handler = webapp2.WSGIApplication([
                                       ('/logout', LogOutHandler),
                                       ('/googled2ac93807b24db11.html', GoogleVerificationHandler),
                                       ('/wta', WtaHandler),
+                                      ('/echo', EchoHandler)
                                   ], config=config, debug=True)
