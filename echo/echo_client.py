@@ -9,7 +9,7 @@ import threading
 UDP_IP = '127.0.0.1'
 UDP_PORT = 9898
 REQUEST_DATA = {'ip': UDP_IP, 'port': UDP_PORT}
-REQUEST_URL = 'http://localhost:8080/echo'
+REQUEST_URL = 'https://famous-vista-512.appspot.com/echo'
 BUFFER_SIZE = 1024
 
 def listen():
